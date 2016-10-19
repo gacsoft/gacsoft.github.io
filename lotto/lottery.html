@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Maven+Pro">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Orbitron">
+	<link rel="stylesheet" type="text/css" href="lottery.css">	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="lottery.js" type="text/javascript"></script> 
+</head>
+
+<body>
+
+<!-- BEGIN image preloading -->
+<div class="hidden">
+	<script type="text/javascript">
+		<!--//--><![CDATA[//><!--
+			var images = new Array()
+			function preload() {
+				for (i = 0; i < preload.arguments.length; i++) {
+					images[i] = new Image()
+					images[i].src = preload.arguments[i]
+				}
+			}
+			preload(
+				"images/bg.jpg",
+				"images/ball_gold.png",
+				"images/ball_silver.png",
+				"images/button-BM-red.png",	
+				"images/button-BL.png",				
+				"images/button-BL-off.png",
+				"images/button-BM.png",
+				"images/button-BM-off.png",
+				"images/button-BR.png",
+				"images/button-BR-off.png"
+			)
+		//--><!]]>
+	</script>
+</div>
+<!-- END image preloading -->
+
+<div style="margin-top:20px;"></div>
+
+<!-- BEGIN div align -->
+<div style="text-align: center">
+
+<!-- BEGIN lotteryApp -->
+<div class = "lotteryApp">
+
+<!-- BEGIN top -->
+<div class="top">
+<div style="text-align: center;">
+
+<a id="topButton1" class="menu-button button-TL" href='javascript:displayTab("tab1")' style="margin-top:10px;"><div class="button-text">START</div></a> 
+<a id="topButton2" class="menu-button button-TM-off" href='#' style="margin-top:10px;"><div class="button-text-twoline"></div></a>
+<a id="topButton3" class="menu-button button-TR-off" href='#' style="margin-top:10px;"><div class="button-text-twoline"></div></a>
+
+</div>
+</div>
+<!-- END top -->
+
+<!-- BEGIN center -->
+<div class="center">
+
+<!-- BEGIN tabcontrol -->
+<div class = "section" id="tabCtrl">
+
+<!-- BEGIN tab1 -->
+<div class="tab default-tab" id="tab1">
+
+<div class="section-title">- START -</div>
+<div style="margin-left:12px; margin-right: 12px; margin-top:10px; margin-bottom:5px;"> Please select a game from the list or press New to create a custom one.</div>
+<p>
+<div class="cover">
+<div class="clicker"></div>
+<div class="options"></div>
+ <ul id="ull" class="closed">      		
+ </ul> 
+</div>
+
+<div id="nameHide" class="tab" style="margin-top: 5px;">
+<ul class="table-ul" style="margin-left: 5px;">
+    <li class="table-li">
+      <label class="cell toright">Name:</label>
+      <input type="cell text" id="nameEdit" class="nameEdit" size="16">
+	</li>
+	<li class="table-li">
+      <label class="cell toright">Country code (optional): </label>
+      <input type="text" id="countryEdit" class="nameEdit" size="16">	  
+	</li>
+	<li class="table-li">
+      <label class="cell toright">Update URL (optional): </label>
+      <input type="text" id="urlEdit" class="nameEdit" size="16">	  	 
+    </li> 
+</ul> 	
+</div>
+</p>
+  
+<ul id="selectNumbers" class="table-ul" style="margin-left: 25px; margin-bottom:-10px; display:none;">
+    <li class="table-li">
+      <label class="cell toright">Select</label>
+      <select disabled class="cell blue" id="firstCount" onChange="numbersChanged()"></select>  
+      <label class="numselect cell toright">numbers between 1 and </label>
+      <select disabled class="cell blue" id="firstRange" onChange="numbersChanged()" style="margin-bottom:10px;"></select>  	  
+	  
+    </li>
+    <li class="table-li">
+      <label class="cell toright">and</label>
+      <select disabled class="cell blue" id="secondCount" onChange="numbersChanged()"></select>  
+      <label class="cell toright">numbers between 1 and </label>
+      <select disabled class="cell blue" id="secondRange" onChange="numbersChanged()"></select>  	  
+    </li>
+</ul> 
+</div>
+<!-- END tab1 -->
+ 
+<!-- BEGIN tab2 --> 
+<div class="tab " id="tab2" style="background:none; position:relative;">
+<div id = "delta-section" style="background:none; ">
+<div class="section-title" style="background:none;">- DELTA METHOD -</div>  
+  <p>
+	<ul class="table-ul">
+	<div style="margin-left:95px;">
+	<div id="deltaInner" class="deltaInner"></div>
+	</div>
+	</ul>	
+  </p>    
+	<div id="delta-result" class="gen-result"> </div>
+	<div id="result-aligner" style="width: 480px; position:absolute; bottom:0; text-align:center; margin-left:auto; margin-right:auto; left:0; right:0; background:none;">
+  <div id="result-text"style="background:none;"></div>	   
+  <div id="result"style="background:none;"></div>	 
+  </div>
+</div>
+</div>
+<!-- END tab2 -->
+ 
+<!-- BEGIN tab3 --> 
+<div class="tab " id="tab3" style="background:none;">
+<div class="section-title" >- HISTORIC DATA -</div>
+<div id="historyInner"></div>
+<div id="history-result-text" style="width: 480px; background:none;"></div>	  
+<div id="history-result" class="gen-result"></div>	 
+</div>
+<!-- END tab3 -->
+ 
+<!-- BEGIN tab4 --> 
+<div class="tab " id="tab4" style="background:none;">
+<div class="section-title" >- VIEW DATA -</div>
+<label id = "lastUpdate" style="display:inline-block; margin-top:30px"></label><br />
+<textarea class="numbers" id="numbers" rows="5" cols="50">
+</textarea>
+<div style="text-align: center;">
+<a class="menu-button naked" href='javascript:parse()'><div class="button-text-naked">PARSE</div></a> 	
+</div>
+</div>
+<!-- END tab4 -->
+ 
+<!-- BEGIN tab5 --> 
+<div class="tab " id="tab5" style="background:none; width: 460px; margin-left:10px; margin-right:10px;">
+<div class="section-title" >- DELTA HELP -</div>
+<p>The numbers <b>5, 10, 17, 27, 30, 35</b> can be represented with a series of much smaller numbers by calculating the difference (in other words, delta) between them. 
+The difference between <b>5</b> and <b>10</b> is <b>5</b>, while the difference between <b>10</b> and <b>17</b> is <b>7</b>, and so on. <br />So, the delta method would describe the above series as
+<b>5, 5, 7, 10, 3, 5</b>. 
+</p>
+<p>In 90% of the cases, these delta numbers are smaller than 10. The advantage of this method is that instead of picking six numbers from 1 to 50 
+you're now picking six numbers from 1 to 10, which greatly lowers the possible combinations.
+</p> 
+</div>
+<!-- END tab5 -->
+ 
+<!-- BEGIN tab6 -->  
+<div class="tab " id="tab6" style="background:none; width: 460px; margin-left:10px; margin-right:10px;">
+<div class="section-title" >- HISTORY HELP -</div>
+<p>This method examines past lotto drawings and picks the most common numbers. No lottery machine is perfect, some numbers will occur more frequently than others.</p> 
+<p>If you selected a built-in game mode, this historical data is already inputted. For a custom game, you need to add numbers in the <b>View Data</b> submenu. You can also update the numbers for any built-in game in the same submenu.</p> 
+<p>If the game has an <b>Update URL</b> added to it, the <b>Update</b> button will appear. Otherwise please find a website that lists such past drawings. Some websites may not be supported. Simply press </b>Ctrl+A</b> and select everything on the page, copy and paste to the textbox and press <b>Parse</b>.</p>
+<p>Please make sure that you selected the correct number format in the <b>Start</b> menu, including number of balls and the highest allowed numbers, otherwise the parsing algorithm will reject the data.</p>
+</div>
+<!-- END tab6 -->  
+
+</div> 
+<!-- END tabCtrl -->
+
+</div>
+<!-- END center --> 
+
+<!-- BEGIN bottom -->
+<div class="bottom">
+<div style="text-align: center;">
+<a class="menu-button button-BL" id="subButton1" href=''><div class="button-text">NEW</div></a> 
+<div class="loader loader--style3" id="loadingAnim" style="display: none; position:absolute; width: 130px; margin-top: -15px; z-index:200;">
+  <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="80px" height="80px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+  <path fill="#000" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+    <animateTransform attributeType="xml"
+      attributeName="transform"
+      type="rotate"
+      from="0 25 25"
+      to="360 25 25"
+      dur="0.6s"
+      repeatCount="indefinite"/>
+    </path>
+  </svg>
+</div>		
+<a class="menu-button button-BM" id="subButton2" href=''><div class="button-text">EDIT</div></a> 		
+<a class="menu-button button-BR" id="subButton3" href=''><div class="button-text">DELETE</div></a> 	
+</div>
+</div>
+<!-- END BOTTOM -->
+
+</div> 
+<!-- END lotteryApp -->
+</div>
+<!-- END div align -->
+
+<script>
+	pageLoad();
+</script>
+
+</body>
+</html>

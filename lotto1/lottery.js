@@ -66,11 +66,15 @@ function displayTab(id) {
 	var idOfTabToDisplay = id; 
 
 	if (id === "tab1") {
-		showNew();
+		showNew();		
 		if (isEditable())
 			enableEdit();
-		else
+		else {
 			disableEdit();
+			enableButton("#subButton3");
+			$("#subButton3").attr("href", 'javascript:showPopup()')	
+				.html('<div class="button-text">HELP</div>');			
+		}
 
 	} else if (id === "tab2") {
 		enableButton("#subButton1");
@@ -332,7 +336,10 @@ function enableEdit() {
 
 function disableEdit() {
 	disableButton("#subButton2");
-	disableButton("#subButton3");
+	//disableButton("#subButton3");
+		enableButton("#subButton3");
+		$("#subButton3").attr("href", 'javascript:showPopup()')	
+			.html('<div class="button-text">HELP</div>');		
 }
 
 function showNew() {
